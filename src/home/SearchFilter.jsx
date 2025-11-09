@@ -13,6 +13,7 @@ const SearchFilter = ({ filteredData }) => {
               title={item.title}
               location={item.location}
               imageSrc={item.imageSrc}
+              activity={item}
             />
           ))
         ) : (

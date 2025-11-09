@@ -1,15 +1,28 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = ({
   location = "Udupi",
   imageSrc = "https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg",
   title = "",
+  activity = null,
 }) => {
+  const navigate = useNavigate();
  
   const description =
     "Curated small-group experience. Certified guide. Safety first with gear included.";
-  const price = 999;
-  const onViewDetails = () => alert(`View details clicked for ${location}`);
+  const price = activity?.price || 999;
+
+  const handleViewDetails = () => {
+    const activityData = activity || {
+      id: Date.now(),
+      title,
+      location,
+      imageSrc,
+      price,
+    };
+    navigate("/details", { state: { activity: activityData } });
+  };
 
   return (
     <div className="p-6 mt-4 inline-block mx-auto w-fit">
@@ -43,7 +56,7 @@ const HomePage = ({
             </div>
 
             <button
-              onClick={onViewDetails}
+              onClick={handleViewDetails}
               className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-sm rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-300"
             >
               View Details

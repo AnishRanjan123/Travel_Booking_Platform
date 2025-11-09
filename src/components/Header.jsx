@@ -1,14 +1,29 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function Header ({ searchTerm, setSearchTerm }) {
+export default function Header ({ searchTerm, setSearchTerm, filteredData = [] }) {
+  const navigate = useNavigate()
+
+  const handleSearchClick = (e) => {
+    e.preventDefault()
+    if (filteredData.length > 0) {
+      // Navigate to the first filtered result's details page
+      const firstResult = filteredData[0]
+      navigate("/details", { state: { activity: firstResult } })
+    } else {
+      // Show alert if no results found
+      alert("No results found. Please try a different search term.")
+    }
+  }
+
   return (
     <>
        <nav className="bg-white border-b border-gray-200 dark:bg-gray-100">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Logo */}
-          <a
-            href="https://flowbite.com/"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer hover:opacity-80 transition-opacity"
           >
             <img
               src="https://flowbite.com/docs/images/logo.svg"
@@ -18,12 +33,12 @@ export default function Header ({ searchTerm, setSearchTerm }) {
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
               Traval Delight
             </span>
-          </a>
+          </button>
 
           {/* Right Side */}
           <div className="flex items-center gap-3 md:order-2">
             {/* Refined Search Bar */}
-            <form className="relative w-64 md:w-72">
+            <form className="relative w-64 md:w-72" onSubmit={handleSearchClick}>
              <input
                    type="search"
                    id="default-search"
@@ -55,8 +70,8 @@ export default function Header ({ searchTerm, setSearchTerm }) {
               </div>
             </form>
             <button
-            
               type="button"
+              onClick={handleSearchClick}
               className="text-black bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 
               font-medium rounded-2xl text-sm px-5 py-2.5 transition-all duration-200 
               shadow-md hover:shadow-lg dark:bg-amber-400 dark:hover:bg-blue-600 
