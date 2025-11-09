@@ -4,6 +4,7 @@ import Header from "./components/header.jsx";
 import Home from "./home/Home";
 import DetailsPage from "./details/DetailsPage";
 import CheckoutPage from "./checkout/CheckoutPage";
+import PaymentDonePage from "./payment/PaymentDonePage";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -69,6 +70,7 @@ function App() {
         <Route path="/" element={<Home searchTerm={searchTerm} filteredData={filteredData} />} />
         <Route path="/details" element={<DetailsPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/payment-done" element={<PaymentDonePage />} />
       </Routes>
     </Router>
   );

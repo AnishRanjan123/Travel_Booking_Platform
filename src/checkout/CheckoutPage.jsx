@@ -59,8 +59,7 @@ const CheckoutPage = () => {
       alert("Please agree to the terms and safety policy");
       return;
     }
-    alert(`Payment confirmed! Booking for ${bookingData.activity.title} is complete.`);
-    navigate("/");
+    navigate("/payment-done");
   };
 
   return (
